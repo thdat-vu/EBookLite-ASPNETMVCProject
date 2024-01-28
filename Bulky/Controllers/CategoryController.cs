@@ -18,5 +18,9 @@ namespace Bulky.Controllers
             //return View();
             return View(objCategoryList);
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
