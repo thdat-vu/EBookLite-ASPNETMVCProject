@@ -32,7 +32,8 @@ namespace Bulky.DataAccess.Data
                     ListPrice = 99,
                     Price = 90,
                     Price50 = 85,
-                    Price100 = 80
+                    Price100 = 80,
+                    CategoryId = 1
                 },
                 new Product
                 {
@@ -44,7 +45,8 @@ namespace Bulky.DataAccess.Data
                     ListPrice = 100,
                     Price = 95,
                     Price50 = 90,
-                    Price100 = 95
+                    Price100 = 95,
+                    CategoryId = 1
                 },
                 new Product
                 {
@@ -56,7 +58,8 @@ namespace Bulky.DataAccess.Data
                     ListPrice = 115,
                     Price = 100,
                     Price50 = 95,
-                    Price100 = 90
+                    Price100 = 90,
+                    CategoryId = 2
                 },
                 new Product
                 {
@@ -68,7 +71,8 @@ namespace Bulky.DataAccess.Data
                     ListPrice = 200,
                     Price = 190,
                     Price50 = 180,
-                    Price100 = 150
+                    Price100 = 150,
+                    CategoryId = 2
                 },
                 new Product
                 {
@@ -80,7 +84,8 @@ namespace Bulky.DataAccess.Data
                     ListPrice = 400,
                     Price = 350,
                     Price50 = 320,
-                    Price100 = 300
+                    Price100 = 300,
+                    CategoryId = 3
                 },
                 new Product
                 {
@@ -92,7 +97,8 @@ namespace Bulky.DataAccess.Data
                     ListPrice = 150,
                     Price = 140,
                     Price50 = 120,
-                    Price100 = 100
+                    Price100 = 100,
+                    CategoryId = 2
                 },
                 new Product
                 {
@@ -104,7 +110,8 @@ namespace Bulky.DataAccess.Data
                     ListPrice = 460,
                     Price = 420,
                     Price50 = 400,
-                    Price100 = 380
+                    Price100 = 380,
+                    CategoryId = 3
                 }
                 );
         }
