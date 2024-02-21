@@ -33,7 +33,8 @@ namespace Bulky.DataAccess.Data
                     Price = 90,
                     Price50 = 85,
                     Price100 = 80,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ImageUrl=""
                 },
                 new Product
                 {
@@ -46,7 +47,8 @@ namespace Bulky.DataAccess.Data
                     Price = 95,
                     Price50 = 90,
                     Price100 = 95,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -59,7 +61,8 @@ namespace Bulky.DataAccess.Data
                     Price = 100,
                     Price50 = 95,
                     Price100 = 90,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -72,7 +75,8 @@ namespace Bulky.DataAccess.Data
                     Price = 190,
                     Price50 = 180,
                     Price100 = 150,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -85,7 +89,8 @@ namespace Bulky.DataAccess.Data
                     Price = 350,
                     Price50 = 320,
                     Price100 = 300,
-                    CategoryId = 3
+                    CategoryId = 3,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -98,7 +103,8 @@ namespace Bulky.DataAccess.Data
                     Price = 140,
                     Price50 = 120,
                     Price100 = 100,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -111,7 +117,8 @@ namespace Bulky.DataAccess.Data
                     Price = 420,
                     Price50 = 400,
                     Price100 = 380,
-                    CategoryId = 3
+                    CategoryId = 3,
+                    ImageUrl = ""
                 }
                 );
         }

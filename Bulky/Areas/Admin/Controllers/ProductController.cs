@@ -1,7 +1,9 @@
 ﻿using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bulky.Areas.Admin.Controllers
 {
@@ -17,25 +19,53 @@ namespace Bulky.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            //convert a categorylist to IENumberable of selected list item using EF Core Projection
+            
             //return View();
             return View(objProductList);
         }
         public IActionResult Create()
         {
-            return View();
+            //IEnumerable<SelectListItem> CategoryList; 
+            //using viewbag or viewData
+            //ViewBag.CategoryList = CategoryList;
+           // ViewData["CategoryList"] = CategoryList;
+
+            //using ViewModel
+            ProductVM productVM = new()
+            {
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                Product = new Product()
+            };
+            return View(productVM);
         }
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductVM productVM)
         {
             
             if (ModelState.IsValid) //if obj is valid
             {
-                _unitOfWork.Product.Add(obj); //Add Product to Product Table
+                _unitOfWork.Product.Add(productVM.Product); //Add Product to Product Table
                 _unitOfWork.Save(); //keep track on change
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index"); // after adding, return to previous action and reload the page
             }
-            return View(obj); //return previous action + invalid object
+            else
+            {
+
+                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                    {
+                        Text = u.Name,
+                        Value = u.Id.ToString()
+                    });
+                    
+                
+            return View(productVM); //return previous action + invalid object
+            }
         }
         public IActionResult Edit(int? id)
         {
