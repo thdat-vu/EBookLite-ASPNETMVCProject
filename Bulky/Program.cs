@@ -20,8 +20,17 @@ namespace Bulky
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            
 
             builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            //REMEMBER: ADD config appCookie pipeline after AddIdentity pipeline
+            //add config appCookie pipeline section 8 : Authorization
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
             //add pipeline for Identity bcause it is written in RazorPage
             builder.Services.AddRazorPages();
             //register dependency injection into container
@@ -44,7 +53,7 @@ namespace Bulky
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.MapRazorPages(); //Identity
+            app.MapRazorPages(); //Identity Razor Pages
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
