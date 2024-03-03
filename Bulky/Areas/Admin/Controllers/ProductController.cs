@@ -34,7 +34,7 @@ namespace Bulky.Areas.Admin.Controllers
            // ViewData["CategoryList"] = CategoryList;
 
             //using ViewModel
-            //Create
+            //Create View Model
             ProductVM productVM = new()
             {
                 CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
