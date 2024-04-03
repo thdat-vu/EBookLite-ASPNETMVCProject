@@ -1,7 +1,10 @@
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky.Ultility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Bulky.Areas.Customer.Controllers
 {
@@ -33,6 +36,25 @@ namespace Bulky.Areas.Customer.Controllers
             };
             
             return View(cart);
+        }
+        [HttpPost]
+        [Authorize]//must be  authorize user
+
+        public IActionResult Details(ShoppingCart shoppingCart)
+        {
+            //get userID of logged in user
+            //these 2 methods were developed by Identity engineer in Microsoft
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //pass userId to shopping cart ApplicationId
+            shoppingCart.ApplicationId = userId;
+            //add shopping cart
+            _unitOfWork.ShoppingCart.Add(shoppingCart);
+            _unitOfWork.Save();
+
+            //return RedirectToAction("Index");
+            //instead of write a magic string action name here. We can write name of with corresponding action name.
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
         {
