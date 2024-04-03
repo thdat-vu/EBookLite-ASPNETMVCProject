@@ -32,12 +32,49 @@ namespace Bulky.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)  
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
-            
-            //step1: create a dbset
-            IQueryable<T> query = dbSet;
-            //step2: filer this dbset
+            //if (tracked)
+            //{
+
+            //    //step1: create a dbset
+            //    IQueryable<T> query = dbSet;
+            //    //step2: filer this dbset
+            //    query = query.Where(filter);
+            //    if (!string.IsNullOrEmpty(includeProperties))
+            //    {
+            //        foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            //        {
+            //            query = query.Include(includeProp);
+            //        }
+            //    }
+            //    return query.FirstOrDefault();
+            //}
+            //else
+            //{
+            //    //step1: create a dbset
+            //    IQueryable<T> query = dbSet;
+            //    //step2: filer this dbset
+            //    query = query.Where(filter);
+            //    if (!string.IsNullOrEmpty(includeProperties))
+            //    {
+            //        foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            //        {
+            //            query = query.Include(includeProp);
+            //        }
+            //    }
+            //    return query.FirstOrDefault();
+            //}
+
+            IQueryable<T> query;
+            if (tracked)
+            {
+                query = dbSet;
+            }
+            else
+            {
+                query = dbSet.AsNoTracking();
+            }
             query = query.Where(filter);
             if (!string.IsNullOrEmpty(includeProperties))
             {
@@ -52,17 +89,17 @@ namespace Bulky.DataAccess.Repository
         //Category, CoverType
         public IEnumerable<T> GetAll(string? includeProperties = null)
         {
-           
+
             //step1: create a dbset
             IQueryable<T> query = dbSet;
             if (!string.IsNullOrEmpty(includeProperties))
             {
-                foreach (var includeProp in includeProperties.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProp);
                 }
             }
-            
+
             return query.ToList();
         }
 
@@ -74,8 +111,8 @@ namespace Bulky.DataAccess.Repository
 
         public void RemoveRange(IEnumerable<T> entity)
         {
-           //remove based on range
-           dbSet.RemoveRange(entity);
+            //remove based on range
+            dbSet.RemoveRange(entity);
         }
         //why we dont have Update method in repository????
         //Bcause updating an entity is very various way. So keep them in controller or somewhere else.
