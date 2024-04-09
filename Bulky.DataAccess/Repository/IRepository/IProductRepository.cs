@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bulky.DataAccess.Repository.IRepository
 {
-    //Bcause I know exactly what is the class inside that category, that is Category
+    
     public interface IProductRepository : IRepository<Product>
     {
         void Update(Product obj);
