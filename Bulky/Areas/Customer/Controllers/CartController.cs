@@ -114,5 +114,10 @@ namespace Bulky.Areas.Customer.Controllers
                 return shoppingCart.Product.Price100;
             }
         }
+
+        public IActionResult Summary()
+        {
+            return View();
+        }
     }
 }
