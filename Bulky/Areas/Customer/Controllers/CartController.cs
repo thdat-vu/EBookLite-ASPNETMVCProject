@@ -1,4 +1,5 @@
 ﻿using Bulky.DataAccess.Repository.IRepository;
+using Bulky.Models;
 using Bulky.Models.ViewModels;
 using Bulky.Ultility;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +29,36 @@ namespace Bulky.Areas.Customer.Controllers
             {
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationId == userId, includeProperties: "Product")
             };
+
+            //Calculate the OderTotal of ShoppingcartList
+            foreach (var cart in shoppingCartVM.ShoppingCartList)
+            {
+                cart.Price = this.GetPriceBasedOnQuantity(cart);
+                shoppingCartVM.OrderTotal += (cart.Price * cart.Count);
+            }
             return View(shoppingCartVM);
+        }
+        /// <summary>
+        /// This function return price of each cart based on quantity
+        /// ex: FORTUNE OF TIME cart: quantity from 1-50: 90$, 51-100: 85$, 100+: 80$
+        /// </summary>
+        /// <param name="shoppingCart"></param>
+        /// <returns></returns>
+        private double GetPriceBasedOnQuantity(ShoppingCart shoppingCart)
+        {
+            if(shoppingCart.Count <= 50)
+            {
+                return shoppingCart.Product.Price;
+            }
+            else if(shoppingCart.Count <= 100)
+            {
+                return shoppingCart.Product.Price50;
+
+            }
+            else
+            {
+                return shoppingCart.Product.Price100;
+            }
         }
     }
 }
